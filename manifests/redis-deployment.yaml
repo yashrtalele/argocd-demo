@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest
+        ports:
+        - containerPort: 6379
+        env:
+          - name: REDIS_CREDS_FILE_PATH
+            value: /etc/redis-creds/redis-creds.yaml
+          volumeMounts:
+          - name: redis-secret-volume
+            mountPath: /etc/redis-creds
+            readOnly: true
+      volumes:
+      - name: redis-secret-volume
+        secret:
+          secretName: argocd-redis

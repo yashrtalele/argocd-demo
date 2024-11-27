@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  namespace: default
+  labels:
+    app: redis
 spec:
   replicas: 1
   selector:
@@ -18,14 +19,14 @@ spec:
           image: redis:latest
           ports:
             - containerPort: 6379
-          volumeMounts:
-            - name: redis-creds
-              mountPath: /etc/redis-creds # Mount the secret as a file
-              readOnly: true
           env:
             - name: REDIS_CREDS_FILE_PATH
-              value: /etc/redis-creds/redis-creds.json # Set the file path as an environment variable
+              value: /etc/redis-creds/redis-secrets.json
+          volumeMounts:
+            - name: redis-secret-volume
+              mountPath: /etc/redis-creds
+              readOnly: true
       volumes:
-        - name: redis-creds
+        - name: redis-secret-volume
           secret:
-            secretName: redis-creds-secret
+            secretName: argocd-redis

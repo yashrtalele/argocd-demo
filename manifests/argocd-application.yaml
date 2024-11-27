@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://github.com/<your-username>/argocd-demo.git" # Replace with your repository URL
+    repoURL: "https://github.com/yashrtalele/argocd-demo.git" # Replace with your repository URL
     targetRevision: main
     path: manifests
   destination:

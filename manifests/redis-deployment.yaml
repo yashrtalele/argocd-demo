@@ -22,7 +22,7 @@ spec:
           env:
             - name: REDIS_PASSWORD
               value: "redis"
-            - name: REDIS_CREDS
+            - name: REDIS_USERNAME
               value: /etc/redis-creds/redis-secrets.json
           volumeMounts:
             - name: redis-secret-volume

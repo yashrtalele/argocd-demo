@@ -21,9 +21,9 @@ spec:
             - containerPort: 6379
           env:
             - name: REDIS_PASSWORD
-              value: "redis"
-            - name: REDIS_USERNAME
-              value: "/etc/redis-creds/redis-secrets.json"
+              value: redis
+            - name: REDIS_CREDS_FILE_PATH
+              value: /etc/redis-creds/redis-secrets.json
           volumeMounts:
             - name: redis-secret-volume
               mountPath: /etc/redis-creds
